@@ -1,6 +1,7 @@
 import argparse
 import numpy as np
 import cv2 as cv
+
 inputing = []
 
 
@@ -45,11 +46,8 @@ def morphing(img, img2):
     cv.waitKey(0)
 
 
-def main(frame):
-    img1 = cv.imread(r"./Img/mona1.jpg")
-    img2 = cv.imread(r"./Img/mona2.jpg")
+def main(img1, img2, frame):
     morphing(img1, img2)
-    print(frame)
     print("Creating the Video...")
     h, w, c = img1.shape
     size = (int(h), int(w))
@@ -61,6 +59,10 @@ def main(frame):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("img1", help="First Image Location")
+    parser.add_argument("img2",help="Second Image Location")
     parser.add_argument("FrameRate", help="Frame Rate of the Video")
     args = parser.parse_args()
-    main(args.FrameRate)
+    img1 = cv.imread(args.img1)
+    img2 = cv.imread(args.img2)
+    main(img1, img2, args.FrameRate)
